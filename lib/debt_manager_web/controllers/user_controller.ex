@@ -15,6 +15,8 @@ defmodule DebtManagerWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    user_params = Map.put_new(user_params, "balance", [])
+
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         conn

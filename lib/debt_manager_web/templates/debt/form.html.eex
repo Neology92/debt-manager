@@ -10,6 +10,11 @@
 <%= label f, :amount %>
 <%= number_input f, :amount, step: "any" %>
 <%= error_tag f, :amount %>
+<%= for user <- @users do %>
+  <ul>
+    <li><%= user.name %></li>
+  </ul>
+<% end %>
 <div>
   <%= submit "Save" %>
 </div>

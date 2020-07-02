@@ -16,6 +16,6 @@ defmodule DebtManager.Accounts.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :email, :balances])
-    |> validate_required([:name, :email, :balances])
+    |> validate_required([:name, :email])
   end
 end

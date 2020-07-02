@@ -3,6 +3,7 @@ defmodule DebtManagerWeb.DebtController do
 
   alias DebtManager.Flows
   alias DebtManager.Flows.Debt
+  alias DebtManager.Accounts
 
   def index(conn, _params) do
     debts = Flows.list_debts()
@@ -11,7 +12,12 @@ defmodule DebtManagerWeb.DebtController do
 
   def new(conn, _params) do
     changeset = Flows.change_debt(%Debt{})
-    render(conn, "new.html", changeset: changeset)
+    users = Accounts.list_users()
+
+    IO.puts("================")
+    IO.inspect(users)
+
+    render(conn, "new.html", changeset: changeset, users: users)
   end
 
   def create(conn, %{"debt" => debt_params}) do
