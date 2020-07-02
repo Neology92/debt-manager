@@ -50,10 +50,22 @@ defmodule DebtManager.Flows do
 
   """
   def create_debt(attrs \\ %{}, user, debtor_id) do
-    user
-    |> Ecto.build_assoc(:lends, debtor_id: debtor_id)
-    |> Debt.changeset(attrs)
-    |> Repo.insert()
+    debt_tuple =
+      user
+      |> Ecto.build_assoc(:lends, debtor_id: debtor_id)
+      |> Debt.changeset(attrs)
+      |> Repo.insert()
+
+    case debt_tuple do
+      {:ok, debt} ->
+        # TODO: Make sure everything's alright - Sensitive place!
+        DebtManager.Accounts.update_users_balances(debt)
+
+      true ->
+        nil
+    end
+
+    debt_tuple
   end
 
   @doc """
