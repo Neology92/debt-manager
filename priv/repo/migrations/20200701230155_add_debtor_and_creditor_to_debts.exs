@@ -3,11 +3,11 @@ defmodule DebtManager.Repo.Migrations.AddDebtorAndCreditorToDebts do
 
   def change do
     alter table(:debts) do
-      add :debtor_user_id, references(:users, on_delete: :nothing)
-      add :creditor_user_id, references(:users, on_delete: :nothing)
+      add :debtor_id, references(:users, on_delete: :nothing)
+      add :creditor_id, references(:users, on_delete: :nothing)
     end
 
-    # create index(:debts, [:debtor_user_id])
-    # create index(:debts, [:creditor_user_id])
+    # create index(:debts, [:debtor_id])
+    # create index(:debts, [:creditor_id])
   end
 end

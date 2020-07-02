@@ -17,6 +17,9 @@ defmodule DebtManagerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/users", UserController
+    resources "/debts", DebtController
+    resources "/payoffs", PayoffController
   end
 
   # Other scopes may use custom stacks.
