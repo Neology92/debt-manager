@@ -1,30 +1,25 @@
 <h1>Listing Debts</h1>
-
 <table>
   <thead>
     <tr>
       <th>Title</th>
       <th>Amount</th>
       <th>Date</th>
-
       <th></th>
     </tr>
   </thead>
   <tbody>
-<%= for debt <- @debts do %>
-    <tr>
-      <td><%= debt.title %></td>
-      <td><%= debt.amount %></td>
-      <td><%= debt.date %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.debt_path(@conn, :show, debt) %></span>
-        <span><%= link "Edit", to: Routes.debt_path(@conn, :edit, debt) %></span>
-        <span><%= link "Delete", to: Routes.debt_path(@conn, :delete, debt), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
+    <%= for debt <- @debts do %>
+      <tr>
+        <td><%= debt.title %></td>
+        <td><%= debt.amount %></td>
+        <td>
+          <span><%= link "Show", to: Routes.debt_path(@conn, :show, debt) %></span>
+          <span><%= link "Edit", to: Routes.debt_path(@conn, :edit, debt) %></span>
+          <span><%= link "Delete", to: Routes.debt_path(@conn, :delete, debt), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
-
 <span><%= link "New Debt", to: Routes.debt_path(@conn, :new) %></span>
