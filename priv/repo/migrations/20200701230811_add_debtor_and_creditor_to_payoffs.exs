@@ -7,7 +7,7 @@ defmodule DebtManager.Repo.Migrations.AddDebtorAndCreditorToPayoffs do
       add :creditor_id, references(:users, on_delete: :nothing)
     end
 
-    # create index(:payoffs, [:debtor_id])
-    # create index(:payoffs, [:creditor_id])
+    create index(:payoffs, [:debtor_id])
+    create index(:payoffs, [:creditor_id])
   end
 end

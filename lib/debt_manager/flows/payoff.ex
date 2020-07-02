@@ -5,8 +5,8 @@ defmodule DebtManager.Flows.Payoff do
   schema "payoffs" do
     field :title, :string
     field :amount, :float
-    belongs_to :debtor, DebtManager.Accounts.User
-    belongs_to :creditor, DebtManager.Accounts.User
+    belongs_to :debtor, DebtManager.Accounts.User, foreign_key: :debtor_id
+    belongs_to :creditor, DebtManager.Accounts.User, foreign_key: :creditor_id
 
     timestamps()
   end
