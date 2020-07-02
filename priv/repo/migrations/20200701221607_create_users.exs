@@ -5,7 +5,7 @@ defmodule DebtManager.Repo.Migrations.CreateUsers do
     create table(:users) do
       add :name, :string
       add :email, :string
-      add :balances, {:array, :map}
+      add :balances, :map
 
       timestamps()
     end

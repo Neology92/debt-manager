@@ -5,7 +5,7 @@ defmodule DebtManager.Accounts.User do
   schema "users" do
     field :email, :string
     field :name, :string
-    field :balances, {:array, :map}
+    field :balances, :map
     has_many :debts, DebtManager.Flows.Debt, foreign_key: :debtor_id
     has_many :lends, DebtManager.Flows.Debt, foreign_key: :creditor_id
     has_many :payoffs, DebtManager.Flows.Payoff, foreign_key: :debtor_id
