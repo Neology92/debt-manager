@@ -10,11 +10,8 @@
 <%= label f, :amount %>
 <%= number_input f, :amount, step: "any" %>
 <%= error_tag f, :amount %>
-<%= for user <- @users do %>
-  <ul>
-    <li><%= user.name %></li>
-  </ul>
-<% end %>
+<%= label f, :debtor_id %>
+<%= select f, :debtor_id, Enum.concat([{"Choose", nil}], Enum.map(@users, &{&1.name, &1.id})) %>
 <div>
   <%= submit "Save" %>
 </div>
