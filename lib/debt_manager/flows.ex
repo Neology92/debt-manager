@@ -49,8 +49,9 @@ defmodule DebtManager.Flows do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_debt(attrs \\ %{}) do
-    %Debt{}
+  def create_debt(attrs \\ %{}, user, debtor_id) do
+    user
+    |> Ecto.build_assoc(:lends, debtor_id: debtor_id)
     |> Debt.changeset(attrs)
     |> Repo.insert()
   end

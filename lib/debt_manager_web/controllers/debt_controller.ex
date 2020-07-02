@@ -14,14 +14,17 @@ defmodule DebtManagerWeb.DebtController do
     changeset = Flows.change_debt(%Debt{})
     users = Accounts.list_users()
 
-    IO.puts("================")
-    IO.inspect(users)
-
     render(conn, "new.html", changeset: changeset, users: users)
   end
 
   def create(conn, %{"debt" => debt_params}) do
-    case Flows.create_debt(debt_params) do
+    # TODO: put there current, signed in user!
+    user = Accounts.get_user!(1)
+
+    {debtor_id, params} = Map.pop(debt_params, "debtor_id")
+    debtor_id = String.to_integer(debtor_id)
+
+    case Flows.create_debt(params, user, debtor_id) do
       {:ok, debt} ->
         conn
         |> put_flash(:info, "Debt created successfully.")
