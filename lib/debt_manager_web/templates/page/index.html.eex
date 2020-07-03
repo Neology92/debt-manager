@@ -1,7 +1,10 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome %{name}!", name: @current_user.name %></h1>
-  <p>There will be your dashboard</p>
-  <%= link "Create debt", to: Routes.debt_path(@conn, :new), class: "btn btn-primary btn-large", role: "button" %>
+<section class="jumbotron">
+  <h2 class="display-6"><%= gettext "Welcome %{name}!", name: @current_user.name %></h2>
+  <hr class="my-4">
+  <%= link "Create debt", to: Routes.debt_path(@conn, :new), class: "btn btn-primary mr-3", role: "button" %>
+  <%= link "Payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-primary btn-success mr-3", role: "button" %>
+  <%= link "Urge debtors", to: Routes.page_path(@conn, :index), class: "btn btn-primary btn-warning mr-3", role: "button" %>
+</div>
 </section>
 <section>
   <ul>
