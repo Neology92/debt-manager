@@ -1,4 +1,4 @@
-<section class="jumbotron">
+<section class="jumbotron mt-5">
   <h2 class="display-6"><%= gettext "Welcome %{name}!", name: @current_user.name %></h2>
   <hr class="my-4">
   <%= link "Create debt", to: Routes.debt_path(@conn, :new), class: "btn btn-primary mr-3", role: "button" %>

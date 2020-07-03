@@ -12,15 +12,23 @@
   <body>
     <header class="bg-primary">
       <section class="container">
-        <h1><%= link "Debt Manager", to: Routes.page_path(@conn, :index), class: "text-white" %></h1>
-        <nav role="navigation">
-          <ul>
+        <nav role="navigation" class="navbar navbar-expand-lg navbar-dark" >
+          <%= link "Debt Manager", to: Routes.page_path(@conn, :index), class: "text-white navbar-brand" %>
+          <ul class="navbar-nav  ml-auto">
             <%= if @current_user do %>
-              <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "text-light" %></li>
-              <li><%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit), class: "text-light" %></li>
+              <li class="nav-item">
+                <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "text-light nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit), class: "text-light nav-link" %>
+              </li>
             <% else %>
-              <li><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "text-light" %></li>
-              <li><%= link "Sign up", to: Routes.pow_registration_path(@conn, :new), class: "text-light" %></li>
+              <li class="nav-item">
+                <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "text-light nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link "Sign up", to: Routes.pow_registration_path(@conn, :new), class: "text-light nav-link" %>
+              </li>
             <% end %>
           </ul>
         </nav>
