@@ -34,38 +34,4 @@ defmodule DebtManagerWeb.DebtController do
         render(conn, "new.html", changeset: changeset)
     end
   end
-
-  def show(conn, %{"id" => id}) do
-    debt = Flows.get_debt!(id)
-    render(conn, "show.html", debt: debt)
-  end
-
-  def edit(conn, %{"id" => id}) do
-    debt = Flows.get_debt!(id)
-    changeset = Flows.change_debt(debt)
-    render(conn, "edit.html", debt: debt, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "debt" => debt_params}) do
-    debt = Flows.get_debt!(id)
-
-    case Flows.update_debt(debt, debt_params) do
-      {:ok, debt} ->
-        conn
-        |> put_flash(:info, "Debt updated successfully.")
-        |> redirect(to: Routes.debt_path(conn, :show, debt))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", debt: debt, changeset: changeset)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    debt = Flows.get_debt!(id)
-    {:ok, _debt} = Flows.delete_debt(debt)
-
-    conn
-    |> put_flash(:info, "Debt deleted successfully.")
-    |> redirect(to: Routes.debt_path(conn, :index))
-  end
 end

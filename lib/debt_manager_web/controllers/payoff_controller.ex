@@ -25,38 +25,4 @@ defmodule DebtManagerWeb.PayoffController do
         render(conn, "new.html", changeset: changeset)
     end
   end
-
-  def show(conn, %{"id" => id}) do
-    payoff = Flows.get_payoff!(id)
-    render(conn, "show.html", payoff: payoff)
-  end
-
-  def edit(conn, %{"id" => id}) do
-    payoff = Flows.get_payoff!(id)
-    changeset = Flows.change_payoff(payoff)
-    render(conn, "edit.html", payoff: payoff, changeset: changeset)
-  end
-
-  def update(conn, %{"id" => id, "payoff" => payoff_params}) do
-    payoff = Flows.get_payoff!(id)
-
-    case Flows.update_payoff(payoff, payoff_params) do
-      {:ok, payoff} ->
-        conn
-        |> put_flash(:info, "Payoff updated successfully.")
-        |> redirect(to: Routes.payoff_path(conn, :show, payoff))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", payoff: payoff, changeset: changeset)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    payoff = Flows.get_payoff!(id)
-    {:ok, _payoff} = Flows.delete_payoff(payoff)
-
-    conn
-    |> put_flash(:info, "Payoff deleted successfully.")
-    |> redirect(to: Routes.payoff_path(conn, :index))
-  end
 end
