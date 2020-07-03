@@ -23,7 +23,7 @@
               <li><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "text-light" %></li>
               <li><%= link "Sign up", to: Routes.pow_registration_path(@conn, :new), class: "text-light" %></li>
             <% end %>
-            <li><%=  link "Dashboard", to: Routes.debt_path(@conn, :index), class: "text-light" %></li>
+            <li><%=  link "Dashboard", to: Routes.page_path(@conn, :index), class: "text-light" %></li>
           </ul>
         </nav>
       </section>

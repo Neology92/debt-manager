@@ -13,11 +13,6 @@
       <tr>
         <td><%= debt.title %></td>
         <td><%= debt.amount %></td>
-        <td>
-          <span><%= link "Show", to: Routes.debt_path(@conn, :show, debt) %></span>
-          <span><%= link "Edit", to: Routes.debt_path(@conn, :edit, debt) %></span>
-          <span><%= link "Delete", to: Routes.debt_path(@conn, :delete, debt), method: :delete, data: [confirm: "Are you sure?"] %></span>
-        </td>
       </tr>
     <% end %>
   </tbody>

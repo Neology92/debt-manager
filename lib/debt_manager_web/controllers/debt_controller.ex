@@ -28,7 +28,7 @@ defmodule DebtManagerWeb.DebtController do
       {:ok, debt} ->
         conn
         |> put_flash(:info, "Debt created successfully.")
-        |> redirect(to: Routes.debt_path(conn, :show, debt))
+        |> redirect(to: Routes.page_path(conn, :index, debt))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

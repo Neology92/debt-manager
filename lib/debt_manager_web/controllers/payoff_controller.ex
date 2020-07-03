@@ -19,7 +19,7 @@ defmodule DebtManagerWeb.PayoffController do
       {:ok, payoff} ->
         conn
         |> put_flash(:info, "Payoff created successfully.")
-        |> redirect(to: Routes.payoff_path(conn, :show, payoff))
+        |> redirect(to: Routes.page_path(conn, :index, payoff))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

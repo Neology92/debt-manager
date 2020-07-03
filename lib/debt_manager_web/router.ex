@@ -27,15 +27,16 @@ defmodule DebtManagerWeb.Router do
 
   scope "/", DebtManagerWeb do
     pipe_through :browser
-
-    get "/", PageController, :index
   end
 
   scope "/", DebtManagerWeb do
     pipe_through [:browser, :protected]
 
-    resources "/debts", DebtController
-    resources "/payoffs", PayoffController
+    get "/", PageController, :index
+    get "/debts/new", DebtController, :new
+    post "/debts", DebtController, :create
+    get "/payoffs/new", PayoffController, :new
+    post "/payoffs", PayoffController, :create
   end
 
   # Other scopes may use custom stacks.
