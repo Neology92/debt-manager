@@ -1,4 +1,12 @@
 <section class="phx-hero">
   <h1><%= gettext "Welcome %{name}!", name: @current_user.name %></h1>
   <p>There will be your dashboard</p>
+  <%= link "Create debt", to: Routes.debt_path(@conn, :new), class: "btn btn-primary btn-large", role: "button" %>
+</section>
+<section>
+  <ul>
+    <%= for {key, val} <- @current_user.balances do %>
+      <li>User_id: <%= key %> ------> Balance: <%= val %></li>
+    <% end %>
+  </ul>
 </section>

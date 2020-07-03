@@ -17,10 +17,7 @@ defmodule DebtManagerWeb.DebtController do
     render(conn, "new.html", changeset: changeset, users: users)
   end
 
-  def create(conn, %{"debt" => debt_params}) do
-    # TODO: put there current, signed in user!
-    user = Accounts.get_user!(1)
-
+  def create(%{assigns: %{current_user: user}} = conn, %{"debt" => debt_params}) do
     {debtor_id, params} = Map.pop(debt_params, "debtor_id")
     debtor_id = String.to_integer(debtor_id)
 
@@ -28,7 +25,7 @@ defmodule DebtManagerWeb.DebtController do
       {:ok, debt} ->
         conn
         |> put_flash(:info, "Debt created successfully.")
-        |> redirect(to: Routes.page_path(conn, :index, debt))
+        |> redirect(to: Routes.page_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)

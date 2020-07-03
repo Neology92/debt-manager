@@ -19,7 +19,13 @@ defmodule DebtManager.Accounts.User do
   def changeset(user, attrs) do
     user
     |> pow_changeset(attrs)
-    |> cast(attrs, [:name])
+    |> cast(attrs, [:name, :balances])
     |> validate_required([:name])
+  end
+
+  @doc false
+  def changeset_balances(user, attrs) do
+    user
+    |> cast(attrs, [:balances])
   end
 end

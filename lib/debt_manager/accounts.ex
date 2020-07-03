@@ -73,6 +73,12 @@ defmodule DebtManager.Accounts do
     |> Repo.update()
   end
 
+  def update_user_balances(%User{} = user, attrs) do
+    user
+    |> User.changeset_balances(attrs)
+    |> Repo.update()
+  end
+
   @doc """
   Deletes a user.
 
@@ -113,7 +119,7 @@ defmodule DebtManager.Accounts do
     new_creditor_balances =
       Map.update(creditor.balances, Integer.to_string(debtor_id), amount, &(&1 + amount))
 
-    update_user(debtor, %{balances: new_debtor_balances})
-    update_user(creditor, %{balances: new_creditor_balances})
+    update_user_balances(debtor, %{balances: new_debtor_balances})
+    update_user_balances(creditor, %{balances: new_creditor_balances})
   end
 end
