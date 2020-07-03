@@ -21,7 +21,8 @@ config :debt_manager, DebtManagerWeb.Endpoint,
 # Configures Pow (auth library)
 config :debt_manager, :pow,
   user: DebtManager.Accounts.User,
-  repo: DebtManager.Repo
+  repo: DebtManager.Repo,
+  web_module: DebtManagerWeb
 
 # Configures Elixir's Logger
 config :logger, :console,

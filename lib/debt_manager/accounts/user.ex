@@ -6,7 +6,7 @@ defmodule DebtManager.Accounts.User do
   schema "users" do
     pow_user_fields()
     field :name, :string
-    field :balances, :map
+    field :balances, :map, default: %{}
     has_many :debts, DebtManager.Flows.Debt, foreign_key: :debtor_id
     has_many :lends, DebtManager.Flows.Debt, foreign_key: :creditor_id
     has_many :payoffs, DebtManager.Flows.Payoff, foreign_key: :debtor_id
@@ -18,7 +18,8 @@ defmodule DebtManager.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :balances])
-    |> validate_required([:name, :email])
+    |> pow_changeset(attrs)
+    |> cast(attrs, [:name])
+    |> validate_required([:name])
   end
 end
