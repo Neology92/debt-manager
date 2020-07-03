@@ -10,24 +10,24 @@
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header class="bg-primary">
+    <header class="navbar-dark" style="background-color: #0a8244;" >
       <section class="container">
         <nav role="navigation" class="navbar navbar-expand-lg navbar-dark" >
-          <%= link "Debt Manager", to: Routes.page_path(@conn, :index), class: "text-white navbar-brand" %>
+          <%= link "Debt Manager", to: Routes.page_path(@conn, :index), class: "navbar-brand" %>
           <ul class="navbar-nav  ml-auto">
             <%= if @current_user do %>
               <li class="nav-item">
-                <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "text-light nav-link" %>
+                <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "nav-link" %>
               </li>
               <li class="nav-item">
-                <%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit), class: "text-light nav-link" %>
+                <%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit), class: "nav-link" %>
               </li>
             <% else %>
               <li class="nav-item">
-                <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "text-light nav-link" %>
+                <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
               </li>
               <li class="nav-item">
-                <%= link "Sign up", to: Routes.pow_registration_path(@conn, :new), class: "text-light nav-link" %>
+                <%= link "Sign up", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %>
               </li>
             <% end %>
           </ul>
