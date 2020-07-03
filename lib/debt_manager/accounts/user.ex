@@ -1,9 +1,10 @@
 defmodule DebtManager.Accounts.User do
   use Ecto.Schema
+  use Pow.Ecto.Schema
   import Ecto.Changeset
 
   schema "users" do
-    field :email, :string
+    pow_user_fields()
     field :name, :string
     field :balances, :map
     has_many :debts, DebtManager.Flows.Debt, foreign_key: :debtor_id

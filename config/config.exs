@@ -18,6 +18,11 @@ config :debt_manager, DebtManagerWeb.Endpoint,
   pubsub_server: DebtManager.PubSub,
   live_view: [signing_salt: "8QgnfifC"]
 
+# Configures Pow (auth library)
+config :debt_manager, :pow,
+  user: DebtManager.Accounts.User,
+  repo: DebtManager.Repo
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
