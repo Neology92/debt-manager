@@ -45,8 +45,10 @@
           <h2 class="display-6"><%= gettext "Welcome %{name}!", name: @current_user.name %></h2>
           <hr class="my-4">
           <%= link "Dashboard", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary mr-3", role: "button" %>
-          <%= link "Create debt", to: Routes.debt_path(@conn, :new), class: "btn btn-success mr-3", role: "button" %>
-          <%= link "Payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-primary btn-success mr-3", role: "button" %>
+          <div class="btn-group">
+            <%= link "Create debt", to: Routes.debt_path(@conn, :new), class: "btn btn-success pr-3", role: "button" %>
+            <%= link "Create payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-primary btn-success mr-3 pl-3", role: "button" %>
+          </div>
           <%= link "Urge debtors", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary btn-warning mr-3", role: "button" %>
         </div>
       </header>

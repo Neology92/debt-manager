@@ -3,7 +3,7 @@
     <%= for {user_id, balance} <- @current_user.balances do %>
       <%= if balance != 0 do %>
         <div class="col mb-4">
-          <div class="card bg-light pb-3 pt-3 pl-4 pr-4" >
+          <div class="card  pb-3 pt-3 pl-4 pr-4" style="background: <%= if balance > 0, do: "#dff7da", else: "#f2d3d3" %>" >
             <div class="card-body">
               <div class="row">
                 <div class="col-7">
