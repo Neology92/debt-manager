@@ -1,5 +1,5 @@
 <section class="jumbotron">
   <h2 class="display-6 mb-5"><%= gettext "Creating new debt" %></h2>
   <%= render "form.html", Map.put(assigns, :action, Routes.debt_path(@conn, :create)) %>
-  <span><%= link "Back", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary mt-3" %></span>
+  <span><%= link "Back", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary mt-3 btn-sm" %></span>
 </section>

@@ -10,11 +10,21 @@ defmodule DebtManagerWeb.PayoffController do
     render(conn, "index.html", payoffs: payoffs)
   end
 
-  def new(conn, _params) do
+  def new(conn, params) do
     changeset = Flows.change_payoff(%Payoff{})
-    users = Accounts.list_users()
 
-    render(conn, "new.html", changeset: changeset, users: users)
+    default_option = if params && params["id"], do: params["id"], else: nil
+
+    options =
+      Accounts.list_users()
+      |> Enum.map(&{&1.name, &1.id})
+      |> Enum.filter(fn {_name, id} -> id != conn.assigns.current_user.id end)
+
+    render(conn, "new.html",
+      changeset: changeset,
+      options: options,
+      default_option: default_option
+    )
   end
 
   def create(%{assigns: %{current_user: user}} = conn, %{"payoff" => payoff_params}) do

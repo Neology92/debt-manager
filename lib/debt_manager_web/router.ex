@@ -37,6 +37,7 @@ defmodule DebtManagerWeb.Router do
     get "/debts/new", DebtController, :new
     post "/debts", DebtController, :create
     get "/payoffs/new", PayoffController, :new
+    get "/payoffs/new/:id/", PayoffController, :new
     post "/payoffs", PayoffController, :create
   end
 
