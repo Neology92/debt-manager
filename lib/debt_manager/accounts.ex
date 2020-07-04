@@ -108,10 +108,19 @@ defmodule DebtManager.Accounts do
     User.changeset(user, attrs)
   end
 
-  @spec update_users_balances(%{amount: number, creditor_id: any, debtor_id: any}) :: any
-  def update_users_balances(%{debtor_id: debtor_id, creditor_id: creditor_id, amount: amount}) do
+  def update_users_balances(%name{debtor_id: debtor_id, creditor_id: creditor_id, amount: amount}) do
     debtor = get_user!(debtor_id)
     creditor = get_user!(creditor_id)
+
+    name =
+      name
+      |> Module.split()
+      |> List.last()
+
+    amount = if name == "Payoff", do: -amount, else: amount
+
+    IO.puts("=========== amount ===============")
+    IO.puts(amount)
 
     new_debtor_balances =
       Map.update(debtor.balances, Integer.to_string(creditor_id), -amount, &(&1 - amount))

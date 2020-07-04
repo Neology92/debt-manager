@@ -22,7 +22,7 @@ defmodule DebtManagerWeb.DebtController do
     debtor_id = String.to_integer(debtor_id)
 
     case Flows.create_debt(params, user, debtor_id) do
-      {:ok, debt} ->
+      {:ok, _debt} ->
         conn
         |> put_flash(:info, "Debt created successfully.")
         |> redirect(to: Routes.dashboard_path(conn, :index))

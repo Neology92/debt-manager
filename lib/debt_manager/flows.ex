@@ -7,6 +7,7 @@ defmodule DebtManager.Flows do
   alias DebtManager.Repo
 
   alias DebtManager.Flows.Debt
+  alias DebtManager.Flows.Payoffs
 
   @doc """
   Returns the list of debts.
@@ -39,15 +40,6 @@ defmodule DebtManager.Flows do
 
   @doc """
   Creates a debt.
-
-  ## Examples
-
-      iex> create_debt(%{field: value})
-      {:ok, %Debt{}}
-
-      iex> create_debt(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
   """
   def create_debt(attrs \\ %{}, user, debtor_id) do
     debt_tuple =
@@ -60,9 +52,6 @@ defmodule DebtManager.Flows do
       {:ok, debt} ->
         # TODO: Make sure everything's alright - Sensitive place!
         DebtManager.Accounts.update_users_balances(debt)
-
-      true ->
-        nil
     end
 
     debt_tuple
@@ -148,20 +137,21 @@ defmodule DebtManager.Flows do
 
   @doc """
   Creates a payoff.
-
-  ## Examples
-
-      iex> create_payoff(%{field: value})
-      {:ok, %Payoff{}}
-
-      iex> create_payoff(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
   """
-  def create_payoff(attrs \\ %{}) do
-    %Payoff{}
-    |> Payoff.changeset(attrs)
-    |> Repo.insert()
+  def create_payoff(attrs \\ %{}, user, creditor_id) do
+    payoff_tuple =
+      user
+      |> Ecto.build_assoc(:payoffs, creditor_id: creditor_id)
+      |> Payoff.changeset(attrs)
+      |> Repo.insert()
+
+    case payoff_tuple do
+      {:ok, payoff} ->
+        # TODO: Make sure everything's alright - Sensitive place!
+        DebtManager.Accounts.update_users_balances(payoff)
+    end
+
+    payoff_tuple
   end
 
   @doc """
