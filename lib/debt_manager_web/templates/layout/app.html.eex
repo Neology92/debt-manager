@@ -17,17 +17,20 @@
           <ul class="navbar-nav  ml-auto">
             <%= if @current_user do %>
               <li class="nav-item">
-                <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "nav-link" %>
+                <%= link "Dashboard", to: Routes.page_path(@conn, :index), class: "nav-link #{if @conn.request_path == "/", do: "active"}" %>
               </li>
               <li class="nav-item">
-                <%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit), class: "nav-link" %>
+                <%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit), class: "nav-link #{if @conn.request_path == "/registration/edit", do: "active"}" %>
+              </li>
+              <li class="nav-item">
+                <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "nav-link" %>
               </li>
             <% else %>
               <li class="nav-item">
-                <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
+                <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link #{if @conn.request_path == "/session/new", do: "active"}" %>
               </li>
               <li class="nav-item">
-                <%= link "Sign up", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %>
+                <%= link "Sign up", to: Routes.pow_registration_path(@conn, :new), class: "nav-link #{if @conn.request_path == "/registration/new", do: "active"}" %>
               </li>
             <% end %>
           </ul>
