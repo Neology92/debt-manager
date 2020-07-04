@@ -13,12 +13,9 @@ defmodule DebtManagerWeb.PayoffController do
   def new(conn, params) do
     changeset = Flows.change_payoff(%Payoff{})
 
-    default_option = if params && params["id"], do: params["id"], else: nil
+    default_option = if params && params["id"], do: params["id"], else: 0
 
-    options =
-      Accounts.list_users()
-      |> Enum.map(&{&1.name, &1.id})
-      |> Enum.filter(fn {_name, id} -> id != conn.assigns.current_user.id end)
+    options = generate_options(conn.assigns.current_user)
 
     render(conn, "new.html",
       changeset: changeset,
@@ -27,18 +24,31 @@ defmodule DebtManagerWeb.PayoffController do
     )
   end
 
-  def create(%{assigns: %{current_user: user}} = conn, %{"payoff" => payoff_params}) do
-    {creditor_id, params} = Map.pop(payoff_params, "creditor_id")
+  def create(%{assigns: %{current_user: user}} = conn, %{"payoff" => payoff_params} = params) do
+    {creditor_id, payoff_params} = Map.pop(payoff_params, "creditor_id")
     creditor_id = String.to_integer(creditor_id)
 
-    case Flows.create_payoff(params, user, creditor_id) do
+    case Flows.create_payoff(payoff_params, user, creditor_id) do
       {:ok, _payoff} ->
         conn
         |> put_flash(:info, "Payoff created successfully.")
         |> redirect(to: Routes.dashboard_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        options = generate_options(conn.assigns.current_user)
+        default_option = if params && params["id"], do: params["id"], else: 0
+
+        render(conn, "new.html",
+          changeset: changeset,
+          options: options,
+          default_option: default_option
+        )
     end
+  end
+
+  defp generate_options(current_user) do
+    Accounts.list_users()
+    |> Enum.map(&{&1.name, &1.id})
+    |> Enum.filter(fn {_name, id} -> id != current_user.id end)
   end
 end

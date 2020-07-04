@@ -39,6 +39,7 @@ defmodule DebtManagerWeb.Router do
     get "/payoffs/new", PayoffController, :new
     get "/payoffs/new/:id/", PayoffController, :new
     post "/payoffs", PayoffController, :create
+    post "/payoffs/:id/", PayoffController, :create
   end
 
   # Other scopes may use custom stacks.

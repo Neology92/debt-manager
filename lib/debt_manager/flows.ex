@@ -62,6 +62,9 @@ defmodule DebtManager.Flows do
       {:ok, debt} ->
         # TODO: Make sure everything's alright - Sensitive place!
         DebtManager.Accounts.update_users_balances(debt)
+
+      true ->
+        nil
     end
 
     debt_tuple
@@ -170,6 +173,9 @@ defmodule DebtManager.Flows do
       {:ok, payoff} ->
         # TODO: Make sure everything's alright - Sensitive place!
         DebtManager.Accounts.update_users_balances(payoff)
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        nil
     end
 
     payoff_tuple
