@@ -1,11 +1,3 @@
-<header class="jumbotron mt-4">
-  <h2 class="display-6"><%= gettext "Welcome %{name}!", name: @current_user.name %></h2>
-  <hr class="my-4">
-  <%= link "Create debt", to: Routes.debt_path(@conn, :new), class: "btn btn-primary mr-3", role: "button" %>
-  <%= link "Payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-primary btn-success mr-3", role: "button" %>
-  <%= link "Urge debtors", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary btn-warning mr-3", role: "button" %>
-</div>
-</header>
 <section class="pt-2">
   <div class="row row-cols-1 row-cols-md-2">
     <%= for {user_id, balance} <- @current_user.balances do %>
@@ -20,11 +12,11 @@
                 </div>
                 <div class="col-5">
                   <%= if balance > 0 do %>
-                    <%= link "Urge", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary btn-warning mr-3 btn-block", role: "button" %>
+                    <%= link "Urge", to: Routes.dashboard_path(@conn, :index), class: "btn btn-warning mr-3 btn-block", role: "button" %>
                   <% else %>
-                    <%= link "Payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-primary btn-success mr-3 btn-block", role: "button" %>
+                    <%= link "Payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-success mr-3 btn-block", role: "button" %>
                   <% end %>
-                  <%= link "Show History", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary btn-info mr-3 btn-block", role: "button" %>
+                  <%= link "Show History", to: Routes.dashboard_path(@conn, :index), class: "btn btn-info mr-3 btn-block", role: "button" %>
                 </div>
               </div>
             </div>

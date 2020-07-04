@@ -10,7 +10,7 @@
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header class="navbar-dark" style="background-color: #0a8244;" >
+    <div class="navbar-dark" style="background-color: #0a8244;" >
       <section class="container">
         <nav role="navigation" class="navbar navbar-expand-lg navbar-dark" >
           <%= link "Debt Manager", to: Routes.dashboard_path(@conn, :index), class: "navbar-brand" %>
@@ -36,11 +36,22 @@
           </ul>
         </nav>
       </section>
-    </header>
+    </div>
     <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= @inner_content %>
-    </main>
-  </body>
+      <%= if @current_user do %>
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <header class="jumbotron mt-4">
+          <h2 class="display-6"><%= gettext "Welcome %{name}!", name: @current_user.name %></h2>
+          <hr class="my-4">
+          <%= link "Dashboard", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary mr-3", role: "button" %>
+          <%= link "Create debt", to: Routes.debt_path(@conn, :new), class: "btn btn-success mr-3", role: "button" %>
+          <%= link "Payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-primary btn-success mr-3", role: "button" %>
+          <%= link "Urge debtors", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary btn-warning mr-3", role: "button" %>
+        </div>
+      </header>
+    <% end %>
+    <%= @inner_content %>
+  </main>
+</body>
 </html>
