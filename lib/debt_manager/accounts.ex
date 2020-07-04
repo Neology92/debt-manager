@@ -119,9 +119,6 @@ defmodule DebtManager.Accounts do
 
     amount = if name == "Payoff", do: -amount, else: amount
 
-    IO.puts("=========== amount ===============")
-    IO.puts(amount)
-
     new_debtor_balances =
       Map.update(debtor.balances, Integer.to_string(creditor_id), -amount, &(&1 - amount))
 

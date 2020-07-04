@@ -8,18 +8,18 @@
 </header>
 <section class="pt-2">
   <div class="row row-cols-1 row-cols-md-2">
-    <%= for {key, val} <- @current_user.balances do %>
-      <%= if val != 0 do %>
+    <%= for {user_id, balance} <- @current_user.balances do %>
+      <%= if balance != 0 do %>
         <div class="col mb-4">
           <div class="card bg-light pb-3 pt-3 pl-4 pr-4" >
             <div class="card-body">
               <div class="row">
                 <div class="col-7">
-                  <h5 class="card-title pt-1 pb-2">User id: <%= key %></h5>
-                  <p class="card-text">Balance: <%= val %></p>
+                  <h5 class="card-title pt-1 pb-2"> <%= Enum.find(@users, fn u -> u.id == String.to_integer(user_id) end).name %></h5>
+                  <p class="card-text">Balance: <%= balance %></p>
                 </div>
                 <div class="col-5">
-                  <%= if val > 0 do %>
+                  <%= if balance > 0 do %>
                     <%= link "Urge", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary btn-warning mr-3 btn-block", role: "button" %>
                   <% else %>
                     <%= link "Payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-primary btn-success mr-3 btn-block", role: "button" %>
