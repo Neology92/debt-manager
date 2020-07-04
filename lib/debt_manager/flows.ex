@@ -7,7 +7,6 @@ defmodule DebtManager.Flows do
   alias DebtManager.Repo
 
   alias DebtManager.Flows.Debt
-  alias DebtManager.Flows.Payoffs
 
   @doc """
   Returns the list of debts.
