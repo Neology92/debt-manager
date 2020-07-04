@@ -1,6 +1,31 @@
 <h1> History </h1>
-<%= for debt <- @debts do %>
-  <h5>Amount: <%= debt.amount %></h5>
-  <h5>Debtor: <%= @users[debt.debtor_id] %></h5>
-  <h5>Creditor: <%= @users[debt.creditor_id] %></h5>
-<% end %>
+<div class="row row-cols-1 row-cols-md-2">
+  <div class="card col-1">
+    <%= for debt <- @debts do %>
+      <div class="row">
+        <div class="col">
+          <div class="card mr-5 mb-3">
+            <span>Title: <%= debt.title %></span>
+            <span>Amount: <%= debt.amount %></span>
+            <span>Debtor: <%= @users[debt.debtor_id] %></span>
+            <span>Creditor: <%= @users[debt.creditor_id] %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="card col-1">
+    <%= for payoff <- @payoffs do %>
+      <div class="row">
+        <div class="col">
+          <div class="card mr-5 mb-3">
+            <span>Title: <%= payoff.title %></span>
+            <span>Amount: <%= payoff.amount %></span>
+            <span>Debtor: <%= @users[payoff.debtor_id] %></span>
+            <span>Creditor: <%= @users[payoff.creditor_id] %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -10,11 +10,17 @@ defmodule DebtManagerWeb.DashboardController do
   end
 
   def history(conn, %{"id" => fellow_id}) do
-    debts = Flows.get_debts_between_users(conn.assigns.current_user.id, fellow_id)
-    # TODO: Same pattern with payoffs
+    debts =
+      Flows.get_debts_between_users(conn.assigns.current_user.id, fellow_id)
+      |> Enum.reverse()
+
+    payoffs =
+      Flows.get_payoffs_between_users(conn.assigns.current_user.id, fellow_id)
+      |> Enum.reverse()
+
     users_list = get_users_names_list()
 
-    render(conn, "history.html", debts: debts, users: users_list)
+    render(conn, "history.html", debts: debts, payoffs: payoffs, users: users_list)
   end
 
   defp get_users_names_list() do
