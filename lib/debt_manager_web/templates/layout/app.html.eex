@@ -13,11 +13,11 @@
     <header class="navbar-dark" style="background-color: #0a8244;" >
       <section class="container">
         <nav role="navigation" class="navbar navbar-expand-lg navbar-dark" >
-          <%= link "Debt Manager", to: Routes.page_path(@conn, :index), class: "navbar-brand" %>
+          <%= link "Debt Manager", to: Routes.dashboard_path(@conn, :index), class: "navbar-brand" %>
           <ul class="navbar-nav  ml-auto">
             <%= if @current_user do %>
               <li class="nav-item">
-                <%= link "Dashboard", to: Routes.page_path(@conn, :index), class: "nav-link #{if @conn.request_path == "/", do: "active"}" %>
+                <%= link "Dashboard", to: Routes.dashboard_path(@conn, :index), class: "nav-link #{if @conn.request_path == "/", do: "active"}" %>
               </li>
               <li class="nav-item">
                 <%= link "Edit account", to: Routes.pow_registration_path(@conn, :edit), class: "nav-link #{if @conn.request_path == "/registration/edit", do: "active"}" %>

@@ -1,4 +1,4 @@
-defmodule DebtManagerWeb.PageController do
+defmodule DebtManagerWeb.DashboardController do
   use DebtManagerWeb, :controller
 
   def index(conn, _params) do

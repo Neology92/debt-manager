@@ -32,7 +32,7 @@ defmodule DebtManagerWeb.Router do
   scope "/", DebtManagerWeb do
     pipe_through [:browser, :protected]
 
-    get "/", PageController, :index
+    get "/", DashboardController, :index
     get "/debts/new", DebtController, :new
     post "/debts", DebtController, :create
     get "/payoffs/new", PayoffController, :new
