@@ -16,7 +16,7 @@
                   <% else %>
                     <%= link "Payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-success mr-3 btn-block", role: "button" %>
                   <% end %>
-                  <%= link "Show History", to: Routes.dashboard_path(@conn, :index), class: "btn btn-info mr-3 btn-block", role: "button" %>
+                  <%= link "Show History", to: Routes.dashboard_path(@conn, :history, user_id), class: "btn btn-info mr-3 btn-block", role: "button" %>
                 </div>
               </div>
             </div>

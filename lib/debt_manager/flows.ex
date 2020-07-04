@@ -37,6 +37,17 @@ defmodule DebtManager.Flows do
   """
   def get_debt!(id), do: Repo.get!(Debt, id)
 
+  def get_debts_between_users(u1_id, u2_id) do
+    query =
+      from d in Debt,
+        where:
+          (d.debtor_id == ^u1_id or d.debtor_id == ^u2_id) and
+            (d.creditor_id == ^u2_id or d.creditor_id == ^u1_id),
+        select: d
+
+    Repo.all(query)
+  end
+
   @doc """
   Creates a debt.
   """

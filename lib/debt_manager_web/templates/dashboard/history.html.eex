@@ -1,0 +1,6 @@
+<h1> History </h1>
+<%= for debt <- @debts do %>
+  <h5>Amount: <%= debt.amount %></h5>
+  <h5>Debtor: <%= debt.debtor_id %></h5>
+  <h5>Creditor: <%= debt.creditor_id %></h5>
+<% end %>
