@@ -12,9 +12,13 @@ defmodule DebtManagerWeb.DebtController do
 
   def new(conn, _params) do
     changeset = Flows.change_debt(%Debt{})
-    users = Accounts.list_users()
 
-    render(conn, "new.html", changeset: changeset, users: users)
+    options =
+      Accounts.list_users()
+      |> Enum.map(&{&1.name, &1.id})
+      |> Enum.filter(fn {_name, id} -> id != conn.assigns.current_user.id end)
+
+    render(conn, "new.html", changeset: changeset, options: options)
   end
 
   def create(%{assigns: %{current_user: user}} = conn, %{"debt" => debt_params}) do
