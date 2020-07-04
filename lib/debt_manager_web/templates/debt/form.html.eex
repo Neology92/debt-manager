@@ -16,7 +16,7 @@
 </div>
 <div class="form-group">
   <%= label f, :debtor_id %>
-  <%= select f, :creditor_id, @options, class: "form-control", prompt: "..." %>
+  <%= select f, :debtor_id, @options, class: "form-control" %>
   <%= error_tag f, :debtor_id %>
 </div>
 <div>

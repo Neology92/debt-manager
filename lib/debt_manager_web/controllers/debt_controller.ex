@@ -13,10 +13,7 @@ defmodule DebtManagerWeb.DebtController do
   def new(conn, _params) do
     changeset = Flows.change_debt(%Debt{})
 
-    options =
-      Accounts.list_users()
-      |> Enum.map(&{&1.name, &1.id})
-      |> Enum.filter(fn {_name, id} -> id != conn.assigns.current_user.id end)
+    options = Accounts.generate_users_options(conn.assigns.current_user)
 
     render(conn, "new.html", changeset: changeset, options: options)
   end
@@ -32,7 +29,9 @@ defmodule DebtManagerWeb.DebtController do
         |> redirect(to: Routes.dashboard_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        options = Accounts.generate_users_options(conn.assigns.current_user)
+
+        render(conn, "new.html", changeset: changeset, options: options)
     end
   end
 end

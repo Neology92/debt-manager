@@ -134,4 +134,10 @@ defmodule DebtManager.Accounts do
     update_user_balances(debtor, %{balances: new_debtor_balances})
     update_user_balances(creditor, %{balances: new_creditor_balances})
   end
+
+  def generate_users_options(current_user) do
+    list_users()
+    |> Enum.map(&{&1.name, &1.id})
+    |> Enum.filter(fn {_name, id} -> id != current_user.id end)
+  end
 end

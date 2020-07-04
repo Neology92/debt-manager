@@ -15,7 +15,7 @@ defmodule DebtManagerWeb.PayoffController do
 
     default_option = if params && params["id"], do: params["id"], else: 0
 
-    options = generate_options(conn.assigns.current_user)
+    options = Accounts.generate_users_options(conn.assigns.current_user)
 
     render(conn, "new.html",
       changeset: changeset,
@@ -35,7 +35,7 @@ defmodule DebtManagerWeb.PayoffController do
         |> redirect(to: Routes.dashboard_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        options = generate_options(conn.assigns.current_user)
+        options = Accounts.generate_users_options(conn.assigns.current_user)
         default_option = if params && params["id"], do: params["id"], else: 0
 
         render(conn, "new.html",
@@ -44,11 +44,5 @@ defmodule DebtManagerWeb.PayoffController do
           default_option: default_option
         )
     end
-  end
-
-  defp generate_options(current_user) do
-    Accounts.list_users()
-    |> Enum.map(&{&1.name, &1.id})
-    |> Enum.filter(fn {_name, id} -> id != current_user.id end)
   end
 end

@@ -63,7 +63,7 @@ defmodule DebtManager.Flows do
         # TODO: Make sure everything's alright - Sensitive place!
         DebtManager.Accounts.update_users_balances(debt)
 
-      true ->
+      {:error, %Ecto.Changeset{} = changeset} ->
         nil
     end
 
