@@ -1,10 +1,10 @@
 defmodule DebtManagerWeb.DashboardController do
   use DebtManagerWeb, :controller
-  alias DebtManager.Accounts
   alias DebtManager.Flows
+  alias DebtManager.Accounts
 
   def index(conn, _params) do
-    users_list = get_users_names_list()
+    users_list = Accounts.get_users_names_list()
 
     render(conn, "index.html", users: users_list)
   end
@@ -18,14 +18,8 @@ defmodule DebtManagerWeb.DashboardController do
       Flows.get_payoffs_between_users(conn.assigns.current_user.id, fellow_id)
       |> Enum.reverse()
 
-    users_list = get_users_names_list()
+    users_list = Accounts.get_users_names_list()
 
     render(conn, "history.html", debts: debts, payoffs: payoffs, users: users_list)
-  end
-
-  defp get_users_names_list() do
-    Accounts.list_users()
-    |> Enum.map(fn u -> %{u.id => u.name} end)
-    |> Enum.reduce(fn x, y -> Map.merge(x, y) end)
   end
 end

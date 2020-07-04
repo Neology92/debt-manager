@@ -37,6 +37,12 @@ defmodule DebtManager.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_users_names_list() do
+    list_users()
+    |> Enum.map(fn u -> %{u.id => u.name} end)
+    |> Enum.reduce(fn x, y -> Map.merge(x, y) end)
+  end
+
   @doc """
   Creates a user.
 
