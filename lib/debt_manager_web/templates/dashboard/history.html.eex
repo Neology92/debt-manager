@@ -1,31 +1,47 @@
-<h1> History </h1>
+<h1 class="mb-5"> History </h1>
 <div class="row row-cols-1 row-cols-md-2">
-  <div class="card col-1">
+  <div class="col-1">
+    <h3 class = "mb-4">Debts</h3>
     <%= for debt <- @debts do %>
-      <div class="row">
-        <div class="col">
-          <div class="card mr-5 mb-3">
-            <span>Title: <%= debt.title %></span>
-            <span>Amount: <%= debt.amount %></span>
-            <span>Debtor: <%= @users[debt.debtor_id] %></span>
-            <span>Creditor: <%= @users[debt.creditor_id] %></span>
+      <%= if debt.debtor_id == @current_user.id do %>
+        <div class="card mr-3 text-white mb-3" style="background: #bf0020">
+          <h5 class="card-header"><%= debt.title %></h5>
+          <div class="card-body">
+            <div class="card-title">You owe <%= @users[debt.creditor_id] %>: <b><%= debt.amount %>$</b> </div>
+            <p class="card-text text-right"><%= debt.inserted_at %></p>
           </div>
         </div>
-      </div>
+      <% else %>
+        <div class="card mr-3 text-white mb-3" style="background: #bd316b">
+          <h5 class="card-header"><%= debt.title %> </h5>
+          <div class="card-body">
+            <div class="card-title"><%= @users[debt.debtor_id] %> owns you: <b><%= debt.amount %>$</b></div>
+            <p class="card-text text-right"><%= debt.inserted_at %></p>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
-  <div class="card col-1">
+  <div class="col-1">
+    <h3 class="mb-4">Payoffs</h3>
     <%= for payoff <- @payoffs do %>
-      <div class="row">
-        <div class="col">
-          <div class="card mr-5 mb-3">
-            <span>Title: <%= payoff.title %></span>
-            <span>Amount: <%= payoff.amount %></span>
-            <span>Debtor: <%= @users[payoff.debtor_id] %></span>
-            <span>Creditor: <%= @users[payoff.creditor_id] %></span>
+      <%= if payoff.debtor_id == @current_user.id do %>
+        <div class="card mr-3 text-white mb-3" style="background: #0cab0d">
+          <h5 class="card-header"><%= payoff.title %></h5>
+          <div class="card-body">
+            <div class="card-title"><%= @users[payoff.creditor_id] %> payed you off: <b><%= payoff.amount %>$</b></div>
+            <p class="card-text text-right"><%= payoff.inserted_at %></p>
           </div>
         </div>
-      </div>
+      <% else %>
+        <div class="card mr-3 text-white mb-3" style="background: #298c72">
+          <h5 class="card-header"><%= payoff.title %></h5>
+          <div class="card-body">
+            <div class="card-title">You payed off <%= @users[payoff.debtor_id] %>: <b><%= payoff.amount %>$</b> </div>
+            <p class="card-text text-right"><%= payoff.inserted_at %></p>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
