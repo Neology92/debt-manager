@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-5">
                   <%= if balance > 0 do %>
-                    <button type="button" class="btn btn-warning mr-3 btn-block" data-toggle="modal" data-target="#urgeModal" data-debtor="<%= @users[String.to_integer(user_id)] %>">
+                    <button type="button" class="btn btn-warning mr-3 btn-block" data-toggle="modal" data-target="#urgeModal" data-id="<%= user_id %>" data-debtor="<%= @users[String.to_integer(user_id)] %>">
                       Urge
                     </button>
                   <% else %>

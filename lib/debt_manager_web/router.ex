@@ -33,7 +33,7 @@ defmodule DebtManagerWeb.Router do
     pipe_through [:browser, :protected]
 
     get "/", DashboardController, :index
-    get "/mailer", MailerController, :send_urge
+    get "/mailer/:id", MailerController, :send_urge
 
     get "/history/:id/", DashboardController, :history
 

@@ -49,7 +49,7 @@
             <%= link "Create debt", to: Routes.debt_path(@conn, :new), class: "btn btn-success pr-3", role: "button" %>
             <%= link "Create payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-primary btn-success mr-3 pl-3", role: "button" %>
           </div>
-          <button type="button" class="btn btn-primary btn-warning mr-3" data-toggle="modal" data-target="#urgeModal" data-debtor="all your debtors">
+          <button type="button" class="btn btn-primary btn-warning mr-3" data-toggle="modal" data-target="#urgeModal" data-id="0" data-debtor="all your debtors">
             Urge all debtors
           </button>
         </div>
@@ -68,13 +68,13 @@
               It will send email with reminder to <span class="debtor"></span>. Are you sure?
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Send</button>
+              <%= link "Send", to: Routes.mailer_path(@conn, :send_urge, 0), class: "btn btn-primary pr-3", role: "button" %>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
             </div>
           </div>
         </div>
       </div>
-    <% end %>
+    <%  end %>
     <%= @inner_content %>
   </main>
 </body>
@@ -83,12 +83,18 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script>
   $('#urgeModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget)
-    var recipient = button.data('debtor')
-    var modal = $(this)
+    const button = $(event.relatedTarget)
+    const debtor = button.data('debtor')
+    const id = button.data('id')
+    const modal = $(this)
   
-    modal.find('.modal-title').text('Urge ' + recipient)
-    modal.find('.modal-body .debtor').text(recipient)
+    let route = "<%= Routes.mailer_path(@conn, :send_urge, 0) %>"
+    route = route.substring(0, route.length - 1) + id;
+  
+  
+    modal.find('.modal-title').text('Urge ' + debtor)
+    modal.find('.modal-body .debtor').text(debtor)
+    modal.find('.modal-footer a').attr("href", route)
   })
 </script>
 </html>
