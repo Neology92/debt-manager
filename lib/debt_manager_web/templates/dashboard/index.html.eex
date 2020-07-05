@@ -8,7 +8,7 @@
               <div class="row">
                 <div class="col-7">
                   <h5 class="card-title pt-1 pb-2"> <%= @users[String.to_integer(user_id)] %></h5>
-                  <p class="card-text">Balance: <%= balance %></p>
+                  <p class="card-text">Balance: <%= balance %>$</p>
                 </div>
                 <div class="col-5">
                   <%= if balance > 0 do %>
