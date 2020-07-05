@@ -6,6 +6,12 @@ defmodule DebtManager.Application do
   use Application
 
   def start(_type, _args) do
+    # Use .env in dev
+    unless Mix.env() == :prod do
+      Envy.auto_load()
+      Envy.reload_config()
+    end
+
     children = [
       # Start the Ecto repository
       DebtManager.Repo,
