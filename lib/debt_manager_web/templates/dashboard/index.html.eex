@@ -12,7 +12,9 @@
                 </div>
                 <div class="col-5">
                   <%= if balance > 0 do %>
-                    <%= link "Urge", to: Routes.dashboard_path(@conn, :index), class: "btn btn-warning mr-3 btn-block", role: "button" %>
+                    <button type="button" class="btn btn-warning mr-3 btn-block" data-toggle="modal" data-target="#urgeModal" data-debtor="<%= @users[String.to_integer(user_id)] %>">
+                      Urge
+                    </button>
                   <% else %>
                     <%= link "Payoff", to: Routes.payoff_path(@conn, :new, user_id), class: "btn btn-success mr-3 btn-block", role: "button" %>
                   <% end %>
