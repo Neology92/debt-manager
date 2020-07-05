@@ -1,29 +1,43 @@
 <section class="pt-2">
-  <div class="row row-cols-1 row-cols-md-2">
-    <%= for {user_id, balance} <- @current_user.balances do %>
-      <%= if balance != 0 do %>
-        <div class="col mb-4">
-          <div class="card  pb-3 pt-3 pl-4 pr-4" style="background: <%= if balance > 0, do: "#dff7da", else: "#f2d3d3" %>" >
-            <div class="card-body">
-              <div class="row">
-                <div class="col-7">
-                  <h5 class="card-title pt-1 pb-2"> <%= @users[String.to_integer(user_id)] %></h5>
-                  <p class="card-text">Balance: <%= balance %>$</p>
-                </div>
-                <div class="col-5">
-                  <%= if balance > 0 do %>
-                    <button type="button" class="btn btn-warning mr-3 btn-block" data-toggle="modal" data-target="#urgeModal" data-id="<%= user_id %>" data-debtor="<%= @users[String.to_integer(user_id)] %>">
-                      Urge
-                    </button>
-                  <% else %>
-                    <%= link "Payoff", to: Routes.payoff_path(@conn, :new, user_id), class: "btn btn-success mr-3 btn-block", role: "button" %>
-                  <% end %>
-                  <%= link "Show History", to: Routes.dashboard_path(@conn, :history, user_id), class: "btn btn-info mr-3 btn-block", role: "button" %>
+  <%= if Enum.count(@current_user.balances) == 0 do %>
+    <div class="jumbotron ">
+      <h3 class="display-4">
+        Hey, good news!
+      </h3>
+      <p class="lead">
+        You don't have any debts or lends! But if you'd like to create new debt, just click "Create debt" in panel above.
+      </p>
+    </div>
+  <% else %>
+    <h3 class="mb-4">
+      Balances
+    </h3>
+    <div class="row row-cols-1 row-cols-md-2">
+      <%= for {user_id, balance} <- @current_user.balances do %>
+        <%= if balance != 0 do %>
+          <div class="col mb-4">
+            <div class="card  pb-3 pt-3 pl-4 pr-4" style="background: <%= if balance > 0, do: "#dff7da", else: "#f2d3d3" %>" >
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-7">
+                    <h5 class="card-title pt-1 pb-2"> <%= @users[String.to_integer(user_id)] %></h5>
+                    <p class="card-text">Balance: <%= balance %>$</p>
+                  </div>
+                  <div class="col-5">
+                    <%= if balance > 0 do %>
+                      <button type="button" class="btn btn-warning mr-3 btn-block" data-toggle="modal" data-target="#urgeModal" data-id="<%= user_id %>" data-debtor="<%= @users[String.to_integer(user_id)] %>">
+                        Urge
+                      </button>
+                    <% else %>
+                      <%= link "Payoff", to: Routes.payoff_path(@conn, :new, user_id), class: "btn btn-success mr-3 btn-block", role: "button" %>
+                    <% end %>
+                    <%= link "Show History", to: Routes.dashboard_path(@conn, :history, user_id), class: "btn btn-info mr-3 btn-block", role: "button" %>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
