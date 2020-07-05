@@ -49,7 +49,7 @@
             <%= link "Create debt", to: Routes.debt_path(@conn, :new), class: "btn btn-success pr-3", role: "button" %>
             <%= link "Create payoff", to: Routes.payoff_path(@conn, :new), class: "btn btn-primary btn-success mr-3 pl-3", role: "button" %>
           </div>
-          <%= link "Urge debtors", to: Routes.dashboard_path(@conn, :index), class: "btn btn-primary btn-warning mr-3", role: "button" %>
+          <%= link "Urge debtors", to: Routes.mailer_path(@conn, :send_urge), class: "btn btn-primary btn-warning mr-3", role: "button" %>
         </div>
       </header>
     <% end %>
