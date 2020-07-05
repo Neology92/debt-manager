@@ -5,16 +5,28 @@ defmodule DebtManager.Mailer do
 
   @from "info@debtmanager.app"
 
-  def send_urge_email(creditor_name, debtor_address_email) do
-    IO.puts(creditor_name)
-    IO.puts(debtor_address_email)
+  def send_urge_emails(creditor_name, emails_list) do
+    res_list =
+      for address <- emails_list do
+        case send_email(
+               to: address,
+               from: @from,
+               subject: "Ask from #{creditor_name}",
+               text:
+                 "Hey mate! Could you please pay back these few dolars you owe me?\nI would really appreciate that. Thanks in advance!"
+             ) do
+          {:ok, _} ->
+            :ok
 
-    send_email(
-      to: debtor_address_email,
-      from: @from,
-      subject: "Ask from #{creditor_name}",
-      text:
-        "Hey mate! Could you please pay back these few dolars you owe me?\nI would really appreciate that. Thanks in advance!"
-    )
+          {:error, _, _} ->
+            :error
+        end
+      end
+
+    if Enum.all?(res_list, &(&1 == :ok)) do
+      :ok
+    else
+      :error
+    end
   end
 end

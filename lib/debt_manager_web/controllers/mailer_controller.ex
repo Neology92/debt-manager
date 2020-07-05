@@ -25,21 +25,16 @@ defmodule DebtManagerWeb.MailerController do
         email
       end
 
-    IO.puts("=========== emails ===========")
-    IO.inspect(emails)
+    case Mailer.send_urge_emails(user.name, emails) do
+      :ok ->
+        conn
+        |> put_flash(:info, "Sent successfully.")
+        |> redirect(to: Routes.dashboard_path(conn, :index))
 
-    # case Mailer.send_urge_emails(conn.assigns.current_user.name, email) do
-    #   {:ok, _mail} ->
-    #     conn
-    #     |> put_flash(:info, "Email sent successfully.")
-    #     |> redirect(to: Routes.dashboard_path(conn, :index))
-
-    #   {:error, _, _} ->
-    #     conn
-    #     |> put_flash(:warning, "Something went wrong. Mail have not been sent.")
-    #     |> redirect(to: Routes.dashboard_path(conn, :index))
-    #   end
-
-    redirect(conn, to: Routes.dashboard_path(conn, :index))
+      :error ->
+        conn
+        |> put_flash(:warning, "Something went wrong.")
+        |> redirect(to: Routes.dashboard_path(conn, :index))
+    end
   end
 end
