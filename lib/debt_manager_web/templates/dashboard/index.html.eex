@@ -1,5 +1,5 @@
 <section class="pt-2">
-  <%= if Enum.count(@current_user.balances) == 0 do %>
+  <%= if Enum.all?(@current_user.balances, fn {id, val} -> val == 0 end) do %>
     <div class="jumbotron ">
       <h3 class="display-4">
         Hey, good news!
